@@ -1,6 +1,7 @@
 # example netlify.toml
 [build]
-  command = "npm install --legacy-peer-deps && npm run build"
+  NPM_FLAGS = "--force"
+  command = "npm run build"
   functions = "netlify/functions"
   publish = ".next"
 
