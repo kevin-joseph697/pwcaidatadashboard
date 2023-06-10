@@ -8,7 +8,9 @@ export function WelcomeHeader(props: {
   return (
     <div className={styles.welcomeHeader}>
       {/* <ButtonGithub /> */}
-      <div className={styles.title}>{props.title}</div>
+      <div className={styles.title} style={{
+        fontWeight:'bold'
+      }}>{props.title}</div>
       <div className={styles.subtitle}>{props.subtitle}</div>
     </div>
   );

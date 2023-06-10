@@ -145,22 +145,11 @@ export default function Home() {
           property="og:description"
           content="Visualize data with our tool created using OpenAI's GPT3 technology"
         />
-        <meta
-          name="og:url"
-          content="https://labs.leniolabs.com/data-dashboard/"
-        />
         {/* Twitter Meta tags */}
         <meta name="twitter:creator" content="Leniolabs_ LLC" />
-        <meta
-          property="twitter:image"
-          content="https://labs.leniolabs.com/data-dashboard/meta.png"
-        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="GPT3 Data Visualization Tool" />
-        <meta
-          name="twitter:url"
-          content="https://labs.leniolabs.com/data-dashboard/"
-        />
+
         <meta
           property="twitter:description"
           content="Visualize and analyze data with our app created using OpenAI's GPT3"
@@ -170,13 +159,14 @@ export default function Home() {
       <Container>
         <Panel>
           <PanelHeader>
-            {/* <img src={`/${PwC}.jpg`}/> */}
+
           
             <WelcomeHeader
               title="PWC AI Data Dashboard"
+
               subtitle={
                 <>
-                  Upload your CSV dataset or {""}
+                  Upload your CSV dataset or <br/>
                   <ButtonLink onClick={handleRandomDataset} accent="BRAND">
                     try it with random data.
                   </ButtonLink>

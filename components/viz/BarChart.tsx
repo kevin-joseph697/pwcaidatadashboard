@@ -42,7 +42,7 @@ export function BarChart(
           <YAxis stroke="var(--textColor)" tickFormatter={formatNumber} />
           <Tooltip />
           <CartesianGrid stroke="var(--borderColor)" strokeDasharray="5 5" />
-          <Bar dataKey={"y"} fill={palette[0]} />
+          <Bar dataKey={"y"} fill={palette[5]} />
         </RBarChart>
       </ResponsiveContainer>
     </ErrorBoundary>

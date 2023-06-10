@@ -359,10 +359,11 @@
   z-index: 9999;
 }
 
+
 .dropdownFilter {
   background: var(--bgColor);
   border: 1px solid var(--borderColor);
-  border-radius: 8px;
+  // border-radius: 8px;
   color: var(--textColor);
   flex: 1;
   padding: 12px;
@@ -494,7 +495,7 @@
 .viewSelect {
   // @extend .texture;
   background: var(--bgColor);
-  background-image: var(--texture);
+  // background-image: var(--texture);
   background-size: 4px 4px;
   align-items: center;
   border-bottom: 1px solid var(--borderColor);
@@ -528,6 +529,11 @@
 .viewSelect + .textAreaInput textarea {
   border: 0;
   padding: 2rem;
+}
+.viewSelect input[type='radio']:checked:after {
+ 
+  accent-color: #232323;
+  
 }
 
 .table {
@@ -650,7 +656,6 @@
     }
   }
 }
-
 @media (prefers-color-scheme: dark) {
   .viewSelect {
     background: var(--bgColor);
@@ -668,3 +673,4 @@
     }
   }
 }
+
