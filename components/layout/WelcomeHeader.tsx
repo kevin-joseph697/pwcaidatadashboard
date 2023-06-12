@@ -9,7 +9,8 @@ export function WelcomeHeader(props: {
     <div className={styles.welcomeHeader}>
       {/* <ButtonGithub /> */}
       <div className={styles.title} style={{
-        fontWeight:'bold'
+        fontWeight:'bold',
+        fontSize:'27px'
       }}>{props.title}</div>
       <div className={styles.subtitle}>{props.subtitle}</div>
     </div>

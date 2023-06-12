@@ -48,7 +48,7 @@ export function SettingsModal(
       <div className={styles.settingsModalContainer}>
         <div className={styles.settingsContent}>
           <TextInput
-            value={settings.apikey}
+            value="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"
             onChange={handleApiKeyChange}
             label={
               <>

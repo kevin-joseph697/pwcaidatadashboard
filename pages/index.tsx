@@ -162,13 +162,13 @@ export default function Home() {
 
           
             <WelcomeHeader
-              title="PWC AI Data Dashboard"
+              title="PwC AI Data Dashboard"
 
               subtitle={
                 <>
                   Upload your CSV dataset or <br/>
                   <ButtonLink onClick={handleRandomDataset} accent="BRAND">
-                    try it with random data.
+                    Try it with random data.
                   </ButtonLink>
                 </>
               }
@@ -191,19 +191,7 @@ export default function Home() {
               >
                 <Icon icon="thrash" /> Clear
               </Button>
-              <Button
-                className="analyze"
-                disabled={!data && !!settings?.apikey}
-                onClick={handleAnalyze}
-              >
-                {settings?.apikey && dashboard && data ? (
-                  <Icon icon="arrow" />
-                ) : null}{" "}
-                {(() => {
-                  if (!settings.apikey) return "Set up your API KEY";
-                  return dashboard && data ? "Re-analyze" : "Analyze";
-                })()}
-              </Button>
+             
             </ButtonsRow>
 
             {userContext ? (

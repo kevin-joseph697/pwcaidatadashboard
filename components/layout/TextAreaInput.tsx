@@ -11,13 +11,19 @@ export function TextAreaInput(
   }>
 ) {
   const ref = React.createRef<HTMLTextAreaElement>();
-
+  const [textAreaValue,setTextAreaValue] = React.useState('')
   const handleChange = React.useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       props.onChange?.(e.target.value);
     },
     [props.onChange]
   );
+  const questionFormSubmitted = (e:any)=>{
+    if (e.key === 'Enter') {
+      // console.log('do validate');
+      setTextAreaValue(e.target.value)
+    }
+  }
   return (
     <div
       className={className(
@@ -26,7 +32,17 @@ export function TextAreaInput(
       )}
     >
       <div className={styles.label}>{props.label}</div>
-      <textarea ref={ref} onChange={handleChange} value={props.value} />
+      <textarea ref={ref} onChange={handleChange} value={textAreaValue} />
+      <div style={{
+        paddingRight: '20px',
+        paddingLeft: '20px',
+        paddingBottom: '20px'
+      }}>
+        <input type="text" style={{ width: '100%', padding: '10px', borderRadius: '10px' }}
+         placeholder="Ask Your Question"  onKeyDown={questionFormSubmitted}/>
+      </div>
+
+      
     </div>
   );
 }

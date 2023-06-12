@@ -10,22 +10,22 @@ export function generatePrompt(
   model: string
 ) {
   return getPrompt(getPromptModel(model), [
-    {
-      question: `
-This is the dataset:
+    //     {
+    //       question: `
+    // This is the dataset:
 
-${stringifyData(dataset.slice(0, sampleRows), ",")}${
-        userContext
-          ? `
+    // ${stringifyData(dataset.slice(0, sampleRows), ",")}${
+    //         userContext
+    //           ? `
 
 
-More information about the dataset: 
+    // More information about the dataset: 
 
-          ${userContext}`
-          : ""
-      }
-        `,
-    },
+    //           ${userContext}`
+    //           : ""
+    //       }
+    //         `,
+    //     },
   ]);
 }
 
@@ -49,8 +49,7 @@ export async function generateDashboard(
         question: `
 This is the dataset:
 
-${stringifyData(dataset.slice(0, sampleRows), ",")}${
-          userContext
+${stringifyData(dataset.slice(0, sampleRows), ",")}${userContext
             ? `
 
 
@@ -58,7 +57,7 @@ More information about the dataset:
 
           ${userContext}`
             : ""
-        }
+          }
         `,
       },
     ],

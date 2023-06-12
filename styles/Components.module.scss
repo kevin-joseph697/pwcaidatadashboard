@@ -94,7 +94,7 @@
     background-color: var(--lightBg);
     border-color: var(--textColor);
     color: #191a30;
-    margin-left: auto;
+    // margin-left: auto;
     &:hover {
       background-color: var(--brandGrey);
       border-color: var(--brandGrey);
@@ -159,7 +159,7 @@
   align-items: center;
   background: var(--brandOrange);
   border: 2px solid var(--brandOrange);
-  border-radius: 50px;
+  border-radius: 2px;
   color: var(--textButton);
   cursor: pointer;
   display: flex;
@@ -305,7 +305,7 @@
     background: var(--bgColor);
     padding: 2rem;
     border: 1px solid var(--borderColor);
-    border-radius: 8px;
+    // border-radius: 8px;
 
     .settingsContent {
       width: 100%;
@@ -361,12 +361,13 @@
 
 
 .dropdownFilter {
-  background: var(--bgColor);
+  background: var(--cardBgColor);
   border: 1px solid var(--borderColor);
   // border-radius: 8px;
   color: var(--textColor);
   flex: 1;
   padding: 12px;
+  // color: white;
 
   label {
     display: block;
@@ -379,6 +380,7 @@
     accent-color: #4353ff;
     background: transparent;
     color: var(--textColorMuted);
+    // color: white;
     padding: 0;
     border-radius: 6px;
     border: none;
@@ -402,13 +404,14 @@
 
 .performanceIndicator {
   flex: 1;
-  background: var(--bgColor);
+  background: var(--brandOrange);
   padding: 16px;
-  border-radius: 2px;
+  // border-radius: 2px;
   box-shadow: 1px 1px 2px var(--borderColor);
   display: flex;
   flex-direction: column;
   text-overflow: ellipsis;
+  color: white ;
 
   .label {
     font-size: 1rem;
@@ -521,7 +524,7 @@
     }
 
     &:hover {
-      color: var(--blueLink);
+      // color: var(--blueLink);
     }
   }
 }
