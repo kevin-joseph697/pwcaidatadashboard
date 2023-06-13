@@ -35,11 +35,12 @@ import gtag from "../lib/gtag";
 import PwC from '../public/PwC.jpg'
 export default function Home() {
   const [view, setView] = React.useState("dashboard");
-
+  // setting have been hardcoded please remove if not required
+  const apiKey:any = process.env.openAiApiKey
   const [settings, setSettings] = React.useState<ISettings>({
-    apikey: "",
+    apikey: apiKey,
     sampleRows: 10,
-    model: ""
+    model: "gpt-3.5-turbo"
   });
   const [loading, setLoading] = React.useState(false);
 
@@ -191,7 +192,19 @@ export default function Home() {
               >
                 <Icon icon="thrash" /> Clear
               </Button>
-             
+              <Button
+                className="analyze"
+                disabled={!data && !!settings?.apikey}
+                onClick={handleAnalyze}
+              >
+                {settings?.apikey && dashboard && data ? (
+                  <Icon icon="arrow" />
+                ) : null}{" "}
+                {(() => {
+                  if (!settings.apikey) return "Set up your API KEY";
+                  return dashboard && data ? "Re-analyze" : "Analyze";
+                })()}
+              </Button>
             </ButtonsRow>
 
             {userContext ? (

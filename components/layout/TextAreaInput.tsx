@@ -15,8 +15,8 @@ export function TextAreaInput(
   const [message, setMessage] = React.useState('')
   const [chat,setChat] : any = React.useState([])
   const configuration = new Configuration({
-    organization: "org-N9eWqy49Tup0hPDf3fmBpx34",
-    apiKey: "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",
+    organization: process.env.organizationKey,
+    apiKey: process.env.openAiApiKey,
   })
   const openai = new OpenAIApi(configuration )
   const handleChange = React.useCallback(
@@ -100,7 +100,7 @@ export function TextAreaInput(
             )
           }else{
             return(
-              <div style={{
+              <div key={index} style={{
                 paddingRight:'50px',
                 paddingLeft:'50px',
                

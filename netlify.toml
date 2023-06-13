@@ -1,6 +1,7 @@
 # example netlify.toml
 [build]
   command = "npm run build"
+  commandOrigin = "config"
   functions = "netlify/functions"
   publish = "out"
 [build.environment]
