@@ -53,8 +53,12 @@ body {
   background-position:  5px 0, 5px 0, 0 0, 0 0;
   background-size: 5px 5px;
   background-repeat: repeat; */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
 }
-
+body::-webkit-scrollbar{
+  display: none;
+}
 a {
   color: inherit;
   text-decoration: none;
@@ -71,9 +75,9 @@ hr {
   width: 100%;
 }
 
-.trash img {
-  /* filter: hue-rotate(360deg) saturate(6); */
-}
+/* .trash img {
+  filter: hue-rotate(360deg) saturate(6);
+} */
 
 input, textarea{
   background-color: var(--lightBg);
@@ -99,7 +103,7 @@ input[type='radio']:checked:after {
   body {
     background: var(--bgColor);
   }
-  .trash img {
-    /* filter: hue-rotate(2deg) saturate(7) brightness(2); */
-  }
+  /* .trash img {
+    filter: hue-rotate(2deg) saturate(7) brightness(2);
+  } */
 }

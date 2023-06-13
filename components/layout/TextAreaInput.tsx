@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../../styles/Components.module.scss";
 import { className } from "../../utils/className";
+import { Configuration,OpenAIApi } from "openai";
 
 export function TextAreaInput(
   props: React.PropsWithChildren<{
@@ -11,18 +12,53 @@ export function TextAreaInput(
   }>
 ) {
   const ref = React.createRef<HTMLTextAreaElement>();
-  const [textAreaValue,setTextAreaValue] = React.useState('')
+  const [message, setMessage] = React.useState('')
+  const [chat,setChat] : any = React.useState([])
+  const configuration = new Configuration({
+    organization: "org-N9eWqy49Tup0hPDf3fmBpx34",
+    apiKey: "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",
+  })
+  const openai = new OpenAIApi(configuration )
   const handleChange = React.useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       props.onChange?.(e.target.value);
     },
     [props.onChange]
   );
-  const questionFormSubmitted = (e:any)=>{
+  const questionFormSubmitted = (e: any) => {
     if (e.key === 'Enter') {
-      // console.log('do validate');
-      setTextAreaValue(e.target.value)
+      setMessage(e.target.value)
     }
+  }
+  const onsubmit = async (e: any,message:any) => {
+    e.preventDefault()
+    try{
+      console.log(e)
+      let mesge = message 
+      let msgs : any = chat
+      msgs.push({"role":'user',content:message})
+      setChat(msgs)
+      setMessage("")
+      const completion : any = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "system",
+            content: mesge,
+          },
+          ...chat,
+        ],
+      });
+      // console.log(completion?.data?.choices[0]?.message?.content)
+      // msgs.push(completion?.data?.choices[0]?.message)
+      // setChat(msgs)
+      setChat([...chat,completion['data']['choices'][0]['message']])
+      console.log(msgs)
+      console.log(chat)
+    }catch(err){
+      console.log(err)
+    }
+  
   }
   return (
     <div
@@ -32,17 +68,81 @@ export function TextAreaInput(
       )}
     >
       <div className={styles.label}>{props.label}</div>
-      <textarea ref={ref} onChange={handleChange} value={textAreaValue} />
       <div style={{
-        paddingRight: '20px',
-        paddingLeft: '20px',
-        paddingBottom: '20px'
+        height: '80vh',
+        overflowY:'scroll'
       }}>
-        <input type="text" style={{ width: '100%', padding: '10px', borderRadius: '10px' }}
-         placeholder="Ask Your Question"  onKeyDown={questionFormSubmitted}/>
+
+        {chat && chat.length >0
+        ?chat.map((chats:any,index:any)=>{
+          if(chats['role'] == 'user'){
+            return(
+              <div key={index} style={{
+                paddingRight:'50px',
+                paddingLeft:'50px',
+                paddingTop:'20px',
+                marginBottom:'50px',
+              width:'100%'
+            }}>
+              <p style={{
+                float:'right'
+              }}>
+              <span style={{
+                backgroundColor: 'black',
+                padding: '15px',
+                borderRadius: '30px',
+                color: 'white',
+                width: 'auto',
+                display: 'block'
+              }}>{chats['content']}</span>
+              </p>
+            </div>
+            )
+          }else{
+            return(
+              <div style={{
+                paddingRight:'50px',
+                paddingLeft:'50px',
+               
+               width:'100%'
+             }}>
+               <p>
+               <span style={{
+                 backgroundColor: 'black',
+                 padding: '15px',
+                 borderRadius: '30px',
+                 color: 'white',
+                 width: 'auto',
+                display: 'block'
+               }}>{chats['content']}</span> 
+               </p>
+             </div>
+            )
+          }
+        }): ""
+
+        }
+        
+        
+
+
+     
+        
       </div>
 
-      
+      <form onSubmit={(e)=>onsubmit(e,message)}>
+
+        <div style={{
+          paddingRight: '20px',
+          paddingLeft: '20px',
+          paddingBottom: '20px'
+        }}>
+          <input type="text" style={{ width: '100%', padding: '10px', borderRadius: '10px' }}
+            placeholder="Ask Your Question"  value={message} onChange={(e)=>setMessage(e.target.value)} />
+        </div>
+      </form>
+
+
     </div>
   );
 }

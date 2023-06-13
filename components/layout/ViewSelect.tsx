@@ -29,7 +29,7 @@ export function ViewSelect(props: ViewSelectProps) {
           checked={props.value === "prompt"}
           type="radio"
           name="view"
-          // onChange={() => {}}
+          onChange={() => {}}
           onClick={handleChange("prompt")}
           style={{
             accentColor:'#d04a02'
