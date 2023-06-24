@@ -125,7 +125,9 @@ export function Table(props: TableProps) {
 
   return (
     <div ref={tableContainerRef} className={styles.table}>
-      <table>
+      <table style={{
+        width:'90vw'
+      }}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>

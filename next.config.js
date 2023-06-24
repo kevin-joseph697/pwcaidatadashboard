@@ -3,9 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
   // assetPrefix: ".",
   env:{
-    openAiApiKey : "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",
+    openAiApiKey : "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",
     organizationKey : "org-N9eWqy49Tup0hPDf3fmBpx34",
-    // openAiApiKey:"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"
+    exampleopenAiApiKey:"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",
+    exampleOrganizationKey:"org-ewWkcOTIDlyMrQL1INoD5Irz"
   }
 }
 

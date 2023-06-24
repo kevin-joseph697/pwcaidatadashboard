@@ -20,12 +20,12 @@
 }
 
 .panel {
-  flex: 1;
-  min-width: 400px;
+  flex: 2;
+  // min-width: 400px;
   display: flex;
   flex-direction: column;
   @media (min-width: 56em) {
-    max-width: calc(100vw / 2.5);
+    // max-width: calc(100vw / 2.5);
   }
 
   & + .panel {
@@ -57,13 +57,14 @@
     flex: 1;
     margin: 12px 24px 0 24px;
     max-height: 100vh;
-    overflow-y: scroll;
+    // overflow-y: scroll;
     position: relative;
 
     & > .table {
       overflow: auto;
       margin-bottom: 2rem;
       max-height: 500px;
+      scrollbar-width: none;
     }
   }
 
@@ -103,10 +104,11 @@
 }
 
 .welcomeHeader {
-  width: max-content;
+  // width: max-content;
   margin-right: auto;
-  max-width: calc(100% - 6rem);
-
+  // max-width: calc(100% - 6rem);
+  padding: 20px;
+  position: sticky;
   .title {
     font-size: 32px;
     line-height: 37px;
@@ -167,7 +169,7 @@
   font-weight: 500;
   padding: 0.6rem 1.2rem 0.5rem;
   transition: all ease 0.5s;
-
+  margin-right: 15px;
   & > {
     margin: auto 0;
   }
@@ -206,9 +208,12 @@
 .textAreaInput {
   // display: grid;
   // grid-template-rows: auto 1fr;
-  height: 100%;
+  // height: 100%;
   width: 100%;
-
+  min-height: 90%;
+  overflow-x: hidden;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;
   &.disabled {
     textarea {
       cursor: default;
@@ -248,7 +253,9 @@
     // bottom: 0;
   }
 }
-
+.textAreaInput::-webkit-scrollbar{
+  display: none;
+}
 .textInput {
   width: 100%;
   margin-bottom: 24px;
@@ -541,7 +548,7 @@
 
 .table {
   table {
-    word-wrap: nowrap;
+    // word-wrap: nowrap;
     white-space: nowrap;
 
     border-collapse: collapse;

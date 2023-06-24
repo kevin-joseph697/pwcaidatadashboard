@@ -69,7 +69,7 @@ export function TextAreaInput(
     >
       <div className={styles.label}>{props.label}</div>
       <div style={{
-        height: '80vh',
+        height: '100%',
         overflowY:'scroll'
       }}>
 
@@ -135,7 +135,10 @@ export function TextAreaInput(
         <div style={{
           paddingRight: '20px',
           paddingLeft: '20px',
-          paddingBottom: '20px'
+          paddingBottom: '20px',
+          position:'absolute',
+          bottom:'0',
+          width:'100%'
         }}>
           <input type="text" style={{ width: '100%', padding: '10px', borderRadius: '10px' }}
             placeholder="Ask Your Question"  value={message} onChange={(e)=>setMessage(e.target.value)} />

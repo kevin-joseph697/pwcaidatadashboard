@@ -7,7 +7,7 @@ export async function queryGpt35TurboCompletions(
   return fetch("https://api.openai.com/v1/chat/completions", {
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${options.apikey}`,
+      authorization: `Bearer ${process.env.openAiApiKey}`,
     },
     method: "POST",
     body: JSON.stringify({
