@@ -33,11 +33,14 @@ export async function generateDashboard(
   dataset: IDataset,
   userContext: string,
   sampleRows: number,
-  apikey: string,
+  apikey:any,
   model: string
 ): Promise<{ dashboard: IDashboard }> {
   const randomDatasetSample = [];
-
+  const finalArray= dataset.map((row)=>{
+    delete row[""]
+    return row
+  }) 
   for (let i = 0; i < sampleRows; i++) {
     const randomIndex = Math.round(Math.random() * dataset.length);
     randomDatasetSample.push(dataset[randomIndex]);
@@ -49,7 +52,7 @@ export async function generateDashboard(
         question: `
 This is the dataset:
 
-${stringifyData(dataset.slice(0, sampleRows), ",")}${userContext
+${stringifyData(dataset.slice(0, 7), ",")}${userContext
             ? `
 
 

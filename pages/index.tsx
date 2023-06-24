@@ -31,7 +31,6 @@ import { generateDashboard, generatePrompt } from "../openai";
 import { getRandomDataset, sample } from "../openai/sample";
 import { IDashboard, IDataset, ISettings } from "../types";
 import { isDataValid, parseData, stringifyData } from "../utils/parseData";
-import gtag from "../lib/gtag";
 import PwC from '../public/PwC.jpg'
 export default function Home() {
   const [view, setView] = React.useState("dashboard");
@@ -40,12 +39,12 @@ export default function Home() {
   const [settings, setSettings] = React.useState<ISettings>({
     apikey: apiKey,
     sampleRows: 10,
-    model: "gpt-3.5-turbo"
+    model: "text-davinci-003"
   });
   const [loading, setLoading] = React.useState(false);
 
   const [data, setData] = React.useState<IDataset>();
-  const [userContext, setUserContext] = React.useState<string>("");
+  const [userContext, setUserContext] = React.useState<string>("SOME TEXT TO BE ENTERED");
 
   const [currentSampleIndex, setCurrentSampleIndex] = React.useState(-1);
   const [dashboard, setDashboard] = React.useState<IDashboard | null>();
@@ -69,7 +68,7 @@ export default function Home() {
       setShowSettings(true);
     } else if (data) {
       setLoading(true);
-      generateDashboard(data, userContext, settings.sampleRows, settings.apikey, settings.model)
+      generateDashboard(data, userContext, settings.sampleRows, process.env.exampleopenAiApiKey, settings.model)
         .then((response) => {
           setDashboard(response.dashboard);
           setLoading(false);
@@ -113,12 +112,13 @@ export default function Home() {
   }, []);
 
   const handleDatasetChange = React.useCallback((dataset: string) => {
-    gtag.report("event", "upload_data", {
-      event_category: "settings",
-      event_label: "uploaded",
-    });
+    // gtag.report("event", "upload_data", {
+    //   event_category: "settings",
+    //   event_label: "uploaded",
+    // });
     setData(parseData(dataset));
     setDashboard(null);
+    
   }, []);
 
   const handleClick = React.useCallback(() => {
@@ -134,20 +134,14 @@ export default function Home() {
       <Head>
         <title>AI Data Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="author" content="Leniolabs_ LLC" />
         {/* OG Meta tags */}
         <meta name="og:type" content="website" />
-        <meta
-          property="og:image"
-          content="https://labs.leniolabs.com/data-dashboard/meta.png"
-        />
         <meta property="og:title" content="AI Data Dashboard" />
         <meta
           property="og:description"
           content="Visualize data with our tool created using OpenAI's GPT3 technology"
         />
         {/* Twitter Meta tags */}
-        <meta name="twitter:creator" content="Leniolabs_ LLC" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="GPT3 Data Visualization Tool" />
 
@@ -157,8 +151,52 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container>
-        <Panel>
+      <div style={{
+        padding:'13px',
+        display:'flex',
+        marginBottom:'20px'
+      }}>
+
+         <h2>PwC Ai Dashboard</h2>
+         <div style={{
+          right:'0',
+          position:'absolute',
+          marginRight:'10px',
+          marginBottom:'10px',
+          display:'flex',
+
+         }}>
+            <UploadDatasetButton onUpload={handleDatasetChange}/>
+            <Button
+                className="trash"
+                disabled={!data}
+                outline
+                onClick={handleClear}
+              >
+                <Icon icon="thrash" /> Clear
+              </Button>
+              <Button
+                className="analyze"
+                disabled={!data && !!settings?.apikey}
+                onClick={handleAnalyze}
+              >
+                {settings?.apikey && dashboard && data ? (
+                  <Icon icon="arrow" />
+                ) : null}{" "}
+                {(() => {
+                  if (!settings.apikey) return "Set up your API KEY";
+                  return dashboard && data ? "Re-analyze" : "Analyze";
+                })()}
+              </Button>
+         </div>
+      </div>
+      {/* <WelcomeHeader
+              title="PwC AI Data Dashboard"
+            /> */}
+
+<ViewSelect value={view} onChange={setView} />
+      {/* <Container> */}
+        {/* <Panel>
           <PanelHeader>
 
           
@@ -232,10 +270,16 @@ export default function Home() {
             />
             <HireUs />
           </PanelContent>
-        </Panel>
-        <Panel>
-          <PanelContent>
+        </Panel> */}
+        {/* <Panel>
+          <PanelContent> */}
+            {/* <div style={{
+              position:'static'
+            }}>
+
             <ViewSelect value={view} onChange={setView} />
+            </div> */}
+            <div>
             {!settings.apikey && !data && !dashboard ? (
               <MissingApiKeyMessage
                 onApiKeyClick={handleShowSettings}
@@ -254,8 +298,22 @@ export default function Home() {
             {dashboard && data && view === "dashboard" ? (
               <Dashboard data={data} dashboard={dashboard} />
             ) : null}
-            {dashboard && view === "code" ? (
-              <CodeHighlighter dashboard={dashboard} />
+            {view === "DataTable" ? (
+              <>
+              <div style={{
+              padding:'20px',
+              justifyContent:'center',
+              display:'flex'
+              }}>
+                <Table
+              data={data || []}
+              onChange={(newData) => {
+                setData(newData);
+              }}
+            />
+            {/* <HireUs /> */}
+              </div>
+              </>
             ) : null}
             {data && view === "prompt" && (
               <TextAreaInput
@@ -263,10 +321,13 @@ export default function Home() {
                 value={generatePrompt(data, userContext, settings.sampleRows, settings.model)}
               />
             )}
-          </PanelContent>
-        </Panel>
-      </Container>
+            </div>
+       
+          {/* </PanelContent>
+        </Panel> */}
+      {/* </Container> */}
       {loading && <Loader />}
+      
     </>
   );
 }
